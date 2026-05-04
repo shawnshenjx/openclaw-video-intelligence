@@ -1,0 +1,26 @@
+# Testing dependencies for Memories CLI skill
+pytest>=7.0.0
+pytest-cov>=4.0.0
+pytest-mock>=3.10.0
+pytest-benchmark>=4.0.0
+pytest-timeout>=2.1.0
+pytest-xdist>=3.0.0  # For parallel test execution
+pytest-json-report>=1.5.0  # For JSON test reports
+psutil>=5.9.0  # For memory monitoring in performance tests
+coverage[toml]>=7.0.0
+responses>=0.23.0  # For HTTP mocking if needed
+
+# Code quality and formatting
+black>=22.0.0
+isort>=5.12.0
+flake8>=6.0.0
+mypy>=1.0.0
+
+# Security scanning
+bandit>=1.7.5
+safety>=2.3.0
+
+# Optional: For advanced testing features
+hypothesis>=6.70.0  # Property-based testing
+freezegun>=1.2.0  # Time mocking
+factory-boy>=3.2.0  # Test data factories

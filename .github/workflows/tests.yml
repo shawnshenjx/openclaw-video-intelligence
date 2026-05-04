@@ -1,0 +1,177 @@
+name: Memories CLI Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # Run tests daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, '3.10', 3.11]
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Cache pip packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-cov pytest-mock psutil
+        pip install memories-cli  # Install the CLI tool
+    
+    - name: Check dependencies
+      run: python run_tests.py --check-deps
+    
+    - name: Run unit tests
+      run: python run_tests.py unit --format xml
+    
+    - name: Run integration tests (if API key available)
+      env:
+        MEMORIES_API_KEY: ${{ secrets.MEMORIES_API_KEY }}
+      run: |
+        if [ -n "$MEMORIES_API_KEY" ]; then
+          python run_tests.py integration --format xml
+        else
+          echo "No API key - skipping integration tests"
+        fi
+    
+    - name: Run performance tests
+      run: python run_tests.py performance --no-coverage
+    
+    - name: Generate test report
+      run: python run_tests.py --report
+    
+    - name: Upload coverage to Codecov
+      if: matrix.python-version == '3.10'
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        flags: unittests
+        name: codecov-umbrella
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results-${{ matrix.python-version }}
+        path: |
+          tests/results/
+          tests/coverage/
+        retention-days: 30
+
+  lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install linting tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8 black isort mypy
+    
+    - name: Lint with flake8
+      run: |
+        # Stop the build if there are Python syntax errors or undefined names
+        flake8 scripts/ tests/ --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Exit-zero treats all errors as warnings
+        flake8 scripts/ tests/ --count --exit-zero --max-complexity=10 --max-line-length=88 --statistics
+    
+    - name: Check code formatting with black
+      run: black --check scripts/ tests/
+    
+    - name: Check import sorting with isort
+      run: isort --check-only --diff scripts/ tests/
+    
+    - name: Type checking with mypy
+      run: |
+        mypy scripts/ --ignore-missing-imports || true  # Allow to fail for now
+
+  security:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install security tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install bandit safety
+    
+    - name: Run bandit security check
+      run: bandit -r scripts/ -f json -o bandit-report.json || true
+    
+    - name: Run safety check
+      run: safety check --json --output safety-report.json || true
+    
+    - name: Upload security reports
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-reports
+        path: |
+          bandit-report.json
+          safety-report.json
+
+  performance-benchmark:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-benchmark psutil
+        pip install memories-cli
+    
+    - name: Run performance benchmarks
+      run: |
+        python run_tests.py performance --format junit
+    
+    - name: Store benchmark results
+      uses: benchmark-action/github-action-benchmark@v1
+      if: github.ref == 'refs/heads/main'
+      with:
+        tool: 'pytest'
+        output-file-path: tests/results/junit.xml
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        auto-push: true
+        comment-on-alert: true
+        alert-threshold: '200%'  # Alert if performance degrades by 200%
+        fail-on-alert: false

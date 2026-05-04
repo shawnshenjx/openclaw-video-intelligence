@@ -2,7 +2,7 @@
 
 🧠 **Enterprise video intelligence platform for OpenClaw agents.** Professional-grade video analysis, transcription, and social media intelligence with multi-platform support and advanced AI capabilities.
 
-[![GitHub release](https://img.shields.io/github/release/shawnshenjx/openclaw-video-intelligence.svg)](https://github.com/shawnshenjx/openclaw-video-intelligence/releases)
+[![GitHub release](https://img.shields.io/github/release/shawnshenjx/video-intelligence-platform.svg)](https://github.com/shawnshenjx/video-intelligence-platform/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Skills.sh](https://img.shields.io/badge/Skills.sh-Compatible-blue)](https://skills.sh)
 

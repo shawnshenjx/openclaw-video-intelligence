@@ -90,11 +90,11 @@ python scripts/memories.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" --mai
 
 ### 🔄 V1 vs V2 Commands
 ```bash
-# V1 (Legacy) - Basic scraping
+# V1 - Video hosting platform
 memories v1 scrape --platform youtube --url URL
 memories v1 upload --file video.mp4
 
-# V2 (Modern) - AI-powered analysis  
+# V2 - Atomic intelligence functions
 memories v2 social metadata --platform youtube --video-url URL
 memories v2 social mai-transcript --platform youtube --video-url URL
 ```

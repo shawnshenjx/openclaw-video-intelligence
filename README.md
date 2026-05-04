@@ -122,6 +122,42 @@ python scripts/analyze_video.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" --
 | Instagram| ✅        | ❌               | ✅             |
 | Twitter  | ✅        | ❌               | ✅             |
 
+## 🏗️ Dual API Architecture
+
+The Video Intelligence Platform is built on **Memories.ai's dual architecture** - two complementary API systems designed for different use cases:
+
+### 🏢 V1 API - Video Data Hosting Platform
+**Architecture**: Stateful platform with managed database infrastructure  
+**Purpose**: Complete video hosting and management solution
+
+- ✅ **Video Storage**: Upload and host video files with persistent storage
+- ✅ **Built-in Search**: Managed database with full-text search capabilities
+- ✅ **Video Library Management**: Organize, categorize, and manage video collections
+- ✅ **Download & Streaming**: Direct access to hosted video files
+- 🎯 **Use Case**: Building video platforms, content management systems, video hosting infrastructure
+
+### ⚛️ V2 API - Atomic Intelligence Functions
+**Architecture**: Stateless microservices providing pure AI analysis  
+**Purpose**: Composable video intelligence capabilities
+
+- ✅ **AI Transcription**: Advanced speech-to-text with speaker detection
+- ✅ **Visual Scene Analysis**: MAI (Multimodal AI) visual understanding
+- ✅ **External URL Analysis**: Process videos from any platform without storage
+- ✅ **Webhook Integration**: Async processing for long-running analysis
+- 🎯 **Use Case**: Adding AI analysis to existing systems, research, content intelligence
+
+### 🎯 Architecture Decision Guide
+
+| Need | Recommended API | Example Use Case |
+|------|----------------|------------------|
+| **Video Platform Infrastructure** | V1 | "Build an e-learning platform with video storage and search" |
+| **AI Analysis of External Content** | V2 | "Analyze viral TikTok trends to understand engagement patterns" |
+| **Complete Video Solution** | V1 + V2 | "Video platform with AI-powered content recommendations" |
+| **Research & Analytics** | V2 | "Academic research on social media video content" |
+| **Content Moderation** | V2 | "Automated safety analysis of user-generated video content" |
+
+> **💡 Key Insight**: This is an **architectural choice**, not a version difference. V1 and V2 serve different purposes and can be used together or independently based on your specific requirements.
+
 ## Integration Patterns
 
 ### 1. As OpenClaw Skill

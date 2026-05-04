@@ -1,10 +1,14 @@
-# Memories CLI Skill
+# Video Intelligence Suite
 
-A comprehensive OpenClaw skill for wrapping the Memories.ai CLI tool, providing video intelligence, transcription, and social media analysis capabilities.
+🧠 **Enterprise video intelligence platform for OpenClaw agents.** Professional-grade video analysis, transcription, and social media intelligence with multi-platform support and advanced AI capabilities.
 
-## Installation & Setup
+[![GitHub release](https://img.shields.io/github/release/shawnshenjx/openclaw-video-intelligence.svg)](https://github.com/shawnshenjx/openclaw-video-intelligence/releases)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Skills.sh](https://img.shields.io/badge/Skills.sh-Compatible-blue)](https://skills.sh)
 
-### 1. Install Memories CLI
+## 🚀 Quick Start
+
+### 1. Install Video Intelligence Suite
 
 ```bash
 # Via pip (recommended)

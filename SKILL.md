@@ -1,13 +1,13 @@
 ---
 name: Video Intelligence Suite
 slug: video-intelligence-suite
-version: 1.0.0
-description: Comprehensive video analysis with Memories.ai CLI. Multi-platform support for YouTube, TikTok, Instagram, Twitter with AI transcription, metadata extraction, and visual scene analysis.
+version: 1.2.0
+description: Enterprise video intelligence platform for AI agents. Multi-platform analysis (YouTube, TikTok, Instagram, Twitter) with advanced AI transcription, visual scene understanding, and comprehensive API integration.
 ---
 
-# Video Intelligence with Memories.ai CLI
+# Video Intelligence Suite
 
-The memories command provides fast video analysis across multiple platforms. A unified CLI interface gives you transcription, metadata, and AI visual analysis in one tool.
+**Professional video analysis platform for AI agents.** The Video Intelligence Suite provides enterprise-grade video understanding capabilities through a unified CLI interface, delivering transcription, metadata extraction, and advanced AI visual analysis across multiple social media platforms.
 
 ## Understanding Memories.ai APIs
 

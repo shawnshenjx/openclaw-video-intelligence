@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Test script for Memories.ai Video Intelligence Suite
-Quick validation and testing of core functionality
+Video Intelligence Suite - Test & Validation Script
+Enterprise-grade testing for video analysis capabilities
 """
 
 import os
@@ -222,7 +222,7 @@ def generate_test_report(test_results):
     print(f"SUMMARY: {passed_tests}/{total_tests} tests passed")
     
     if passed_tests == total_tests:
-        print("🎉 All tests passed! Video Intelligence Suite is ready.")
+        print("🎉 All tests passed! Video Intelligence Suite is production-ready.")
         return True
     else:
         print("⚠️ Some tests failed. Check configuration and requirements.")
@@ -230,8 +230,9 @@ def generate_test_report(test_results):
 
 def main():
     """Run all tests"""
-    print("🧪 Video Intelligence Suite - Test Runner")
-    print("=" * 50)
+    print("🧪 Video Intelligence Suite - Professional Test Runner")
+    print("Enterprise Video Analysis Platform Validation")
+    print("=" * 60)
     
     test_results = {}
     

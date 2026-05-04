@@ -2,108 +2,93 @@
 name: Video Intelligence Suite
 slug: video-intelligence-suite
 version: 1.0.0
-description: Memories.ai CLI for video intelligence, transcription, and social media analysis. Supports YouTube, TikTok, Instagram, Twitter with V1 scraping and V2 AI analysis.
-changelog: Initial release - Comprehensive video analysis skill supporting YouTube, TikTok, Instagram, Twitter with AI-powered transcription, metadata extraction, and performance testing suite
-metadata: {"openclaw":{"emoji":"🧠","requires":{"bins":["memories"]},"env":{"MEMORIES_API_KEY":"required"}}}
+description: Comprehensive video analysis with Memories.ai CLI. Multi-platform support for YouTube, TikTok, Instagram, Twitter with AI transcription, metadata extraction, and visual scene analysis.
 ---
 
-# Video Intelligence Suite
+# Video Intelligence with Memories.ai CLI
 
-Comprehensive video analysis skill powered by Memories.ai for transcription, metadata extraction, and social media video processing.
+The memories command provides fast video analysis across multiple platforms. A unified CLI interface gives you transcription, metadata, and AI visual analysis in one tool.
 
-## Requirements
+## Prerequisites
 
-**Required:**
-- `memories` CLI — Memories.ai command-line tool
-- `MEMORIES_API_KEY` — Valid API key from Memories.ai
-
-**Installation:**
 ```bash
 pip install memories-cli
-export MEMORIES_API_KEY="your-api-key"
+export MEMORIES_API_KEY="your-api-key-here"
 ```
 
-## Quick Reference
+For setup details, see [https://github.com/Memories-ai-labs/memories-cli](https://github.com/Memories-ai-labs/memories-cli)
 
-| Platform | Metadata | Transcript | MAI Analysis |
-|----------|----------|------------|-------------|
-| YouTube | ✅ | ✅ | ✅ |
-| TikTok | ✅ | ❌ | ✅ |
-| Instagram | ✅ | ❌ | ✅ |
-| Twitter | ✅ | ❌ | ✅ |
+## Core Workflow
 
-## Core Capabilities
+- **Analyze**: `python scripts/memories.py <video-url>` — full analysis with metadata + transcript
+- **Metadata**: `memories v2 social metadata --platform youtube --video-url URL` — video info only
+- **Transcript**: `memories v2 social transcript --platform youtube --video-url URL` — audio transcription  
+- **MAI Analysis**: `memories v2 social mai-transcript --platform youtube --video-url URL` — visual + audio AI
+- **Verify**: Check JSON response and extract insights
 
-| Task | Command |
-|------|---------|
-| Video Metadata | `memories v2 social metadata --platform youtube --video-url URL` |
-| Audio Transcript | `memories v2 social transcript --platform youtube --video-url URL` |
-| MAI Analysis | `memories v2 social mai-transcript --platform youtube --video-url URL` |
-| Full Analysis | `python scripts/analyze_video.py URL` |
+## Platform Support
 
-## Features
+| Platform | URL Format | Metadata | Transcript | MAI Analysis |
+|----------|------------|----------|------------|-------------|
+| YouTube | `youtube.com/watch?v=*` | ✅ | ✅ | ✅ |
+| TikTok | `tiktok.com/@*/video/*` | ✅ | ❌ | ✅ |
+| Instagram | `instagram.com/p/*` | ✅ | ❌ | ✅ |
+| Twitter | `twitter.com/*/status/*` | ✅ | ❌ | ✅ |
 
-🎥 **Multi-Platform Support**
-- YouTube videos and shorts
-- TikTok videos  
-- Instagram Reels and videos
-- Twitter/X videos
+## Commands
 
-🧠 **AI-Powered Analysis**
-- Video transcription (audio-to-text)
-- MAI visual scene analysis
-- Metadata extraction
-- Content summarization
-
-⚡ **Performance & Testing**
-- Comprehensive pytest test suite
-- Mock framework for development  
-- Performance benchmarking
-- Error handling and retries
-
-## When to Use
-
-✅ **USE this skill when:**
-- "Analyze this YouTube video"
-- "Get transcript for this video" 
-- "Extract video metadata"
-- "Summarize video content"
-- "Social media video analysis"
-
-❌ **DON'T use when:**
-- Video editing or conversion → use `video` skill
-- Live streaming analysis → use real-time tools
-- Audio-only content → use `openai-whisper` skill
-
-## Usage Examples
-
-### Basic Video Analysis
+### Analysis
 ```bash
-python scripts/analyze_video.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+# Full video analysis (recommended)
+python scripts/memories.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+
+# Analysis with MAI visual understanding
+python scripts/memories.py "https://www.tiktok.com/@user/video/123" --mai
+
+# Batch analysis
+python scripts/memories.py --batch urls.txt
 ```
 
-### Get Video Metadata Only
+### Metadata Only
 ```bash
-memories v2 social metadata \
-  --platform youtube \
-  --video-url "https://www.youtube.com/watch?v=dQw4w9WgXcQ" \
+# YouTube video info
+memories v2 social metadata \\
+  --platform youtube \\
+  --video-url "https://www.youtube.com/watch?v=dQw4w9WgXcQ" \\
+  --channel rapid
+
+# TikTok video info  
+memories v2 social metadata \\
+  --platform tiktok \\
+  --video-url "https://www.tiktok.com/@user/video/123" \\
   --channel rapid
 ```
 
-### Full MAI Analysis (Visual + Audio)
+### Transcription
 ```bash
-memories v2 social mai-transcript \
-  --platform youtube \
-  --video-url "https://www.youtube.com/watch?v=dQw4w9WgXcQ" \
+# Audio transcript only (YouTube)
+memories v2 social transcript \\
+  --platform youtube \\
+  --video-url "https://www.youtube.com/watch?v=dQw4w9WgXcQ" \\
+  --channel rapid
+
+# MAI transcript (visual + audio)
+memories v2 social mai-transcript \\
+  --platform youtube \\
+  --video-url "https://www.youtube.com/watch?v=dQw4w9WgXcQ" \\
   --channel rapid
 ```
 
-### TikTok Analysis
+### Channels & Speed
 ```bash
-python scripts/analyze_video.py "https://www.tiktok.com/@user/video/1234567890" --mai
+# Fast processing
+--channel rapid
+
+# Higher quality (slower)
+--channel quality
 ```
 
-## API Responses
+## Response Formats
 
 ### Metadata Response
 ```json
@@ -111,18 +96,35 @@ python scripts/analyze_video.py "https://www.tiktok.com/@user/video/1234567890" 
   "ok": true,
   "result": {
     "title": "Video Title",
-    "description": "Video description...",
-    "duration": "PT5M30S",
+    "description": "Video description text...",
+    "lengthSeconds": 300,
     "viewCount": 12345,
     "channel": {
-      "name": "Channel Name",
-      "handle": "@channel"
+      "name": "Channel Name", 
+      "handle": "@channelhandle"
     }
   }
 }
 ```
 
-### MAI Transcript Response
+### Transcript Response
+```json
+{
+  "ok": true,
+  "result": {
+    "transcript": [
+      {
+        "text": "Hello world",
+        "offset": 1000,
+        "duration": 2000,
+        "lang": "en"
+      }
+    ]
+  }
+}
+```
+
+### MAI Analysis Response
 ```json
 {
   "ok": true,
@@ -130,7 +132,7 @@ python scripts/analyze_video.py "https://www.tiktok.com/@user/video/1234567890" 
     "videoTranscript": {
       "data": [
         {
-          "text": "Visual scene description",
+          "text": "A person walking on a beach at sunset",
           "startTime": 0.0,
           "endTime": 3.0
         }
@@ -139,7 +141,7 @@ python scripts/analyze_video.py "https://www.tiktok.com/@user/video/1234567890" 
     "audioTranscript": {
       "data": [
         {
-          "text": "Spoken words",
+          "text": "The waves are crashing gently",
           "startTime": 0.5,
           "endTime": 2.5
         }
@@ -149,25 +151,8 @@ python scripts/analyze_video.py "https://www.tiktok.com/@user/video/1234567890" 
 }
 ```
 
-## Configuration
-
-### Environment Variables
-- `MEMORIES_API_KEY` - **Required** - Your Memories.ai API key
-
-### Channel Options
-- `rapid` - Fast processing (default)
-- `quality` - Higher accuracy, slower processing
-
 ## Error Handling
 
-The skill handles:
-- Invalid URLs and formats
-- Rate limiting (max 10 requests/minute)
-- Network timeouts and connection issues
-- Platform-specific errors
-- API authentication failures
-
-Common error responses:
 ```json
 {
   "ok": false,
@@ -175,54 +160,145 @@ Common error responses:
 }
 ```
 
-## Testing
+Common issues:
+- **Invalid URL**: Check platform and URL format
+- **Rate limiting**: Wait before retrying (10 requests/minute)
+- **API key missing**: Set `MEMORIES_API_KEY` environment variable  
+- **Network errors**: Retry with exponential backoff
+- **Platform not supported**: Check supported platforms table
 
-Run the comprehensive test suite:
+## Command Chaining
+
+Commands can be chained for complex workflows:
+
 ```bash
-pip install -r requirements-test.txt
-python -m pytest tests/ -v --cov=scripts
+# Get metadata, then transcript if video is short
+python scripts/memories.py "$URL" --metadata-first && \\
+  python scripts/memories.py "$URL" --transcript
+
+# Batch process with error handling
+for url in $(cat urls.txt); do
+  python scripts/memories.py "$url" --mai || echo "Failed: $url"
+done
 ```
 
-Test coverage includes:
-- **Unit tests** - Individual function testing
-- **Integration tests** - Real API calls
-- **Performance tests** - Response time benchmarks
-- **Edge cases** - Error scenarios and edge conditions
-- **Mock framework** - Development without API calls
+## Advanced Usage
 
-## Best Practices
+### Webhook Integration
+```bash
+# Async processing with webhooks
+memories v2 social mai-transcript \\
+  --platform youtube \\
+  --video-url "$URL" \\
+  --webhook-url "https://your-server.com/callback"
+```
 
-1. **API Key Management**
-   - Store in environment variables
-   - Never commit keys to version control
-   - Rotate keys regularly
+### Custom Processing
+```bash
+# Extract specific data
+python scripts/memories.py "$URL" --extract title,duration,transcript
 
-2. **Rate Limiting**
-   - Respect 10 requests/minute limit  
-   - Implement exponential backoff
-   - Process videos sequentially
+# Save results
+python scripts/memories.py "$URL" --output results.json
 
-3. **Error Handling**
-   - Always check response.ok status
-   - Log errors for debugging
-   - Implement retry logic
+# Filter by language
+python scripts/memories.py "$URL" --lang en --transcript-only
+```
 
-4. **Performance**
-   - Use `rapid` channel for quick analysis
-   - Cache metadata when possible
-   - Process in batches for multiple videos
+## Testing
 
-## Version History
+```bash
+# Run test suite
+python -m pytest tests/ -v --cov=scripts
 
-- **1.0.0** - Initial release with full platform support, testing suite, and documentation
+# Test specific platform
+python tests/test_platform_detection.py
 
-## Support
+# Performance benchmarks
+python tests/test_performance.py
+```
 
-- **GitHub**: https://github.com/Memories-ai-labs/memories-cli  
-- **API Docs**: https://api-tools.memories.ai/llms.txt
-- **Issues**: Report bugs via GitHub issues
-- **Community**: Join discussions on Discord
+## Configuration
+
+Environment variables:
+- `MEMORIES_API_KEY` — Required API key
+- `MEMORIES_CHANNEL` — Default channel (rapid/quality)
+- `MEMORIES_WEBHOOK_URL` — Default webhook endpoint
+
+Config file `~/.memories/config.json`:
+```json
+{
+  "api_key": "your-key",
+  "default_channel": "rapid",
+  "webhook_url": "https://your-callback.com",
+  "rate_limit": 10
+}
+```
+
+## Global Options
+
+| Option | Description |
+|--------|-------------|
+| `--mai` | Enable visual scene analysis |
+| `--channel rapid/quality` | Processing speed/quality |
+| `--output FILE` | Save results to file |
+| `--webhook URL` | Async callback URL |
+| `--extract FIELDS` | Extract specific fields only |
+| `--batch FILE` | Process multiple URLs |
+| `--retry N` | Max retry attempts |
+| `--timeout N` | Request timeout seconds |
+
+## Tips
+
+- Always check response `"ok": true` before parsing results
+- Use `rapid` channel for quick analysis, `quality` for accuracy  
+- MAI analysis provides visual understanding but costs more
+- Rate limit is 10 requests/minute per API key
+- Batch processing: process sequentially to avoid rate limits
+- YouTube supports both transcript and MAI, others only MAI
+
+## Troubleshooting
+
+- **API key invalid**: Check key format and permissions
+- **Rate limited**: Wait 60 seconds, implement exponential backoff
+- **Platform detection failed**: Verify URL format and supported platforms
+- **Network timeout**: Increase timeout or retry with exponential backoff
+- **MAI analysis failed**: Try with `--channel quality` or retry later
+
+Run diagnostics:
+```bash
+python scripts/memories.py --doctor
+```
+
+## Use Cases
+
+### Content Analysis
+```bash
+# Analyze TikTok for content themes
+python scripts/memories.py "https://tiktok.com/@creator/video/123" --mai --extract themes,sentiment
+
+# YouTube video summarization  
+python scripts/memories.py "https://youtube.com/watch?v=abc" --extract title,transcript,summary
+```
+
+### Social Media Monitoring
+```bash
+# Monitor competitor content
+python scripts/memories.py --batch competitor_urls.txt --extract engagement,topics
+
+# Content moderation
+python scripts/memories.py "$URL" --mai --extract safety,content_flags
+```
+
+### Research & Data Mining
+```bash
+# Extract educational content
+python scripts/memories.py "$URL" --transcript --extract keywords,concepts,entities
+
+# Trend analysis
+python scripts/memories.py --batch trending_videos.txt --extract hashtags,metrics,themes
+```
 
 ---
 
-*Complete video intelligence solution for OpenClaw agents*
+For detailed API reference and advanced features, see `references/` folder.

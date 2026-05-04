@@ -11,53 +11,57 @@ The memories command provides fast video analysis across multiple platforms. A u
 
 ## Understanding Memories.ai APIs
 
-### 🏗️ V1 API (Legacy Scraping)
-**Purpose**: Basic video scraping and metadata extraction
-- **What it does**: Downloads video info, uploads files, basic search
-- **Use when**: Simple metadata extraction, file uploads, legacy systems
-- **Limitations**: No AI analysis, limited platform support
-- **Cost**: Lower ($0.01/GB upload, $0.001/scrape)
+### 🗄️ V1 API (Video Data Hosting)
+**Purpose**: Managed video storage and search platform
+- **What it does**: Video hosting, persistent storage, search database, file management
+- **Use when**: Building video platforms, need persistent storage, video libraries
+- **Benefits**: No need to setup your own database, built-in search, file hosting
+- **Cost**: $0.01/GB upload + storage fees, includes database and hosting
 
-### 🧠 V2 API (AI-Powered Analysis) 
-**Purpose**: Advanced video intelligence with AI
-- **What it does**: AI transcription, visual scene analysis, social media intelligence
-- **Use when**: Content analysis, video understanding, social media monitoring
-- **Features**: MAI (visual+audio), multi-platform support, webhooks
-- **Cost**: Higher (~$0.11 per 40s video) but includes AI processing
+### ⚛️ V2 API (Atomic Intelligence Capabilities) 
+**Purpose**: Stateless, atomic video analysis functions
+- **What it does**: Pure analysis functions - transcription, visual understanding, metadata extraction
+- **Use when**: Need specific AI capabilities, integrate with existing systems
+- **Benefits**: Stateless design, composable functions, no storage overhead
+- **Cost**: ~$0.11 per 40s video, pay-per-analysis, no storage costs
 
 ### 🎯 When to Use Which?
 
-| Task | API | Why |
-|------|-----|-----|
-| Get video title/duration | V1 | Simple, fast, cheap |
-| Upload video files | V1 | File management focus |
-| **Understand video content** | **V2** | **AI analysis needed** |
-| **Transcribe speech** | **V2** | **Audio-to-text** |
-| **Analyze TikTok/Instagram** | **V2** | **Only V2 supports these** |
-| **Content moderation** | **V2** | **Needs AI understanding** |
+| Use Case | API | Why |
+|----------|-----|-----|
+| **Build video platform** | **V1** | **Need persistent storage + search** |
+| **Video library management** | **V1** | **Database included, no setup needed** |
+| Upload and store videos | V1 | Managed hosting service |
+| Search across video collection | V1 | Built-in search database |
+| **Analyze external videos** | **V2** | **Stateless analysis functions** |
+| **Transcribe speech** | **V2** | **Atomic AI capability** |
+| **Understand video content** | **V2** | **Pure analysis, no storage** |
+| **Integrate AI into existing system** | **V2** | **Composable functions** |
 
-**💡 Recommendation**: Use V2 for most analysis tasks. V1 is mainly for legacy support.
+**💡 Architecture Choice**: 
+- **V1** = Video hosting platform (like YouTube backend)
+- **V2** = Analysis microservices (like transcription API)
 
 ## ⚡ Quick Decision Guide
 
-**"I want to understand what's in this video"** → **V2 MAI Analysis**
+**"I want to understand what's in this video"** → **V2 Analysis Functions**
 ```bash
 python scripts/memories.py "VIDEO_URL" --mai
 ```
 
-**"I just need the video title and duration"** → **V2 Metadata**
+**"I'm building a video platform and need storage"** → **V1 Hosting Platform**
 ```bash
-memories v2 social metadata --platform youtube --video-url "URL" --channel rapid
+memories v1 upload --file "video.mp4" --title "My Video"
 ```
 
-**"I need to upload a video file to storage"** → **V1 Upload**
+**"I need to search through my video library"** → **V1 Database**
 ```bash
-memories v1 upload --file "video.mp4"
+memories v1 search --query "tutorial" --limit 20
 ```
 
-**"I'm analyzing TikTok/Instagram content"** → **V2 Only**
+**"I'm analyzing external social media content"** → **V2 Atomic Functions**
 ```bash
-# V1 doesn't support these platforms
+# V2 is designed for analyzing external URLs
 python scripts/memories.py "TIKTOK_URL" --mai
 ```
 
@@ -105,59 +109,68 @@ memories v2 social mai-transcript --platform youtube --video-url URL
 | Instagram | `instagram.com/p/*` | ✅ | ❌ | ✅ |
 | Twitter | `twitter.com/*/status/*` | ✅ | ❌ | ✅ |
 
-### V1 API (Legacy)
-| Platform | URL Format | Basic Scraping | Upload Support |
-|----------|------------|----------------|----------------|
-| YouTube | `youtube.com/watch?v=*` | ✅ | ❌ |
-| General | Any platform | Limited | ✅ |
+### V1 API (Video Hosting Platform)
+| Function | Support | Description |
+|----------|---------|-------------|
+| File Upload | ✅ | Store videos in Memories.ai hosting |
+| Database Search | ✅ | Search through your video library |
+| Download/Stream | ✅ | Serve videos from storage |
+| External URL Analysis | ❌ | Use V2 for analyzing external videos |
 
-**💡 Key Difference**: V2 provides AI-powered analysis, V1 only does basic scraping.
+**💡 Key Difference**: 
+- **V1** = Your video hosting platform (like building your own YouTube)
+- **V2** = Analysis tools for any video URL (like AI microservices)
 
 ## V1 vs V2 Detailed Comparison
 
-### 🏗️ V1 API - Legacy Scraping
-**Best for**: File uploads, basic metadata, legacy systems
+### 🗄️ V1 API - Video Data Hosting
+**Best for**: Building video platforms, managing video libraries, persistent storage
 
+**Architecture**: Stateful platform with managed database
 **Capabilities**:
-- ✅ Upload video files to Memories.ai storage
-- ✅ Basic metadata extraction (title, duration, views)
-- ✅ Simple video search and listing
-- ✅ Download videos from storage
-- ❌ No AI analysis or transcription
-- ❌ Limited platform support
-- ❌ No visual scene understanding
+- ✅ **Video Hosting**: Upload, store, and serve video files
+- ✅ **Search Database**: Built-in video search without setting up your own DB
+- ✅ **Metadata Management**: Persistent video information storage
+- ✅ **File Operations**: Download, list, organize video collections
+- ✅ **Platform Features**: User management, playlists, video libraries
+- ❌ No AI analysis capabilities (pure hosting/storage)
 
-**Cost**: $0.01/GB upload + $0.001/scrape + storage fees
+**Cost**: $0.01/GB upload + storage fees (includes database hosting)
 
-### 🧠 V2 API - AI-Powered Analysis  
-**Best for**: Video understanding, content analysis, social media intelligence
+### ⚛️ V2 API - Atomic Intelligence Functions  
+**Best for**: Adding AI analysis to existing systems, stateless operations
 
+**Architecture**: Stateless microservices, pure functions
 **Capabilities**:
-- ✅ **MAI Analysis**: Visual scene understanding + audio transcription
-- ✅ **Multi-platform**: YouTube, TikTok, Instagram, Twitter
-- ✅ **AI Transcription**: Speech-to-text with timestamps
-- ✅ **Visual Intelligence**: Scene descriptions, objects, emotions
-- ✅ **Webhook Support**: Async processing for large videos
-- ✅ **Advanced Metadata**: Engagement metrics, hashtags, music
-- ❌ No direct file uploads (URL-based analysis)
+- ✅ **Atomic AI Functions**: Transcription, visual analysis, metadata extraction
+- ✅ **Multi-platform Analysis**: YouTube, TikTok, Instagram, Twitter
+- ✅ **Composable**: Use only the analysis functions you need
+- ✅ **Stateless**: No storage, no database, pure input→output
+- ✅ **Integration-friendly**: Works with any existing video storage system
+- ❌ No file storage or hosting capabilities
 
-**Cost**: ~$0.11 per 40-second video (includes AI processing)
+**Cost**: ~$0.11 per 40-second analysis (pay-per-use, no storage costs)
 
-### 🎯 Which Should You Use?
+### 🎯 Architectural Decision Guide
 
-**Use V1 when**:
-- ✅ Uploading video files to storage
-- ✅ Building file management systems
-- ✅ Working with legacy integrations
-- ✅ Need lowest possible cost
+**Use V1 (Data Hosting) when**:
+- ✅ Building a video platform (like YouTube, Vimeo)
+- ✅ Need persistent video storage and database
+- ✅ Want search functionality without setting up databases
+- ✅ Managing large video libraries
+- ✅ Need video hosting infrastructure
 
-**Use V2 when** (🔥 **Recommended for most cases**):
-- ✅ Analyzing social media content
-- ✅ Understanding what's in videos
-- ✅ Building content moderation systems
-- ✅ Extracting insights from video content
-- ✅ Transcribing video speech
-- ✅ Analyzing competitor content
+**Use V2 (Atomic Functions) when**:
+- ✅ Adding AI analysis to existing systems
+- ✅ Need specific analysis capabilities (transcription, visual understanding)
+- ✅ Analyzing external videos (social media, competitor content)
+- ✅ Building microservices architecture
+- ✅ Want stateless, composable functions
+- ✅ Already have video storage, just need analysis
+
+**🏢 Real-world examples**:
+- **V1**: "I'm building a video learning platform and need to store student videos"
+- **V2**: "I want to analyze TikTok trends and understand what makes videos viral"
 
 ## Commands
 
@@ -173,39 +186,42 @@ python scripts/memories.py "https://www.tiktok.com/@user/video/123" --metadata-o
 python scripts/memories.py --batch urls.txt --mai
 ```
 
-### V1 Analysis (Legacy Scraping)
+### V1 Platform Operations (Data Hosting)
 ```bash
-# Basic scraping (V1)
-memories v1 scrape --platform youtube --url "VIDEO_URL"
-
-# Upload file (V1)
+# Upload to hosting platform (V1)
 memories v1 upload --file "video.mp4" --title "My Video"
 
-# List uploaded videos (V1)
+# Search video database (V1)
+memories v1 search --query "tutorial" --limit 20
+
+# List stored videos (V1)
 memories v1 list --limit 10
+
+# Download from storage (V1)
+memories v1 download --video-no 12345 --output "video.mp4"
 ```
 
-### V2 Metadata (AI Platform)
+### V2 Analysis Functions (Stateless)
 ```bash
-# YouTube video info (V2)
+# Extract metadata from external URL (V2)
 memories v2 social metadata \\
   --platform youtube \\
   --video-url "https://www.youtube.com/watch?v=dQw4w9WgXcQ" \\
   --channel rapid
 
-# TikTok video info (V2 - V1 doesn't support TikTok)
+# Analyze social media content (V2)
 memories v2 social metadata \\
   --platform tiktok \\
   --video-url "https://www.tiktok.com/@user/video/123" \\
   --channel rapid
 ```
 
-### V1 Metadata (Legacy)
+### V1 Database Operations (Stateful)
 ```bash
-# Basic video info (V1)
+# Get info from hosted video (V1)
 memories v1 info --video-no 12345
 
-# Search videos (V1)
+# Search hosted video database (V1)
 memories v1 search --query "tutorial" --limit 20
 ```
 
@@ -224,7 +240,9 @@ memories v2 social mai-transcript \\
   --channel rapid
 ```
 
-**💡 Note**: V1 has NO transcription capabilities. Only V2 can convert speech to text and understand visual content.
+**💡 Key Difference**: 
+- **V1**: Manages your video database and hosting infrastructure
+- **V2**: Provides atomic AI analysis functions for any video URL
 
 ### Channels & Speed
 ```bash

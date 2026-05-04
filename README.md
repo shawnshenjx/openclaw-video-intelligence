@@ -1,6 +1,6 @@
-# Video Intelligence Suite
+# Video Intelligence Platform
 
-🧠 **Enterprise video intelligence platform for OpenClaw agents.** Professional-grade video analysis, transcription, and social media intelligence with multi-platform support and advanced AI capabilities.
+🧠 **Enterprise video intelligence platform for AI agents.** Professional-grade video analysis, transcription, and social media intelligence with multi-platform support and advanced AI capabilities. Compatible with OpenClaw, Claude Code, Cursor, and 50+ other AI agent platforms.
 
 [![GitHub release](https://img.shields.io/github/release/shawnshenjx/video-intelligence-platform.svg)](https://github.com/shawnshenjx/video-intelligence-platform/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -194,6 +194,41 @@ def analyze_video():
     # Run memories CLI and return results
     # ... implementation
 ```
+
+## 🤖 Agent Compatibility
+
+The Video Intelligence Platform is designed to work seamlessly with all major AI agent ecosystems:
+
+### ✅ Supported Agent Platforms
+- **OpenClaw**: Native skill integration (`skills/` directory)
+- **Claude Code**: Skills.sh standard format (`.claude/skills/`)
+- **Cursor**: Agent skills directory (`.agents/skills/`)
+- **GitHub Copilot**: Skills.sh ecosystem compatibility
+- **Codeium Windsurf**: Agent skills support (`.windsurf/skills/`)
+- **Continue**: Agent skills integration (`.continue/skills/`)
+- **Codex**: Skills directory support (`.codex/skills/`)
+- **50+ Additional Platforms**: Full Skills.sh ecosystem support
+
+### 📚 Installation Methods by Agent
+
+**Universal Skills.sh Install** (Recommended):
+```bash
+npx skills add shawnshenjx/video-intelligence-platform
+```
+
+**Direct GitHub Clone** (All agents):
+```bash
+git clone https://github.com/shawnshenjx/video-intelligence-platform.git
+```
+
+**OpenClaw Native**:
+```bash
+# Installed in ~/.openclaw/skills/video-intelligence-platform/
+cd ~/.openclaw/skills/
+git clone https://github.com/shawnshenjx/video-intelligence-platform.git
+```
+
+> **💡 Universal Design**: Built on Skills.sh standard for maximum agent ecosystem compatibility
 
 ## Configuration Options
 

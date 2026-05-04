@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-Video Intelligence Suite - Test & Validation Script
+Video Intelligence Platform - Test & Validation Script
 Enterprise-grade testing for video analysis capabilities
+Compatible with all major AI agent platforms
 """
 
 import os
@@ -222,7 +223,7 @@ def generate_test_report(test_results):
     print(f"SUMMARY: {passed_tests}/{total_tests} tests passed")
     
     if passed_tests == total_tests:
-        print("🎉 All tests passed! Video Intelligence Suite is production-ready.")
+        print("🎉 All tests passed! Video Intelligence Platform is production-ready.")
         return True
     else:
         print("⚠️ Some tests failed. Check configuration and requirements.")
@@ -230,9 +231,9 @@ def generate_test_report(test_results):
 
 def main():
     """Run all tests"""
-    print("🧪 Video Intelligence Suite - Professional Test Runner")
-    print("Enterprise Video Analysis Platform Validation")
-    print("=" * 60)
+    print("🧪 Video Intelligence Platform - Professional Test Runner")
+    print("Universal AI Agent Video Analysis Platform Validation")
+    print("=" * 65)
     
     test_results = {}
     

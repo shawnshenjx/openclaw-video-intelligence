@@ -1,13 +1,13 @@
 ---
-name: Video Intelligence Suite
-slug: video-intelligence-suite
-version: 1.2.0
-description: Enterprise video intelligence platform for AI agents. Multi-platform analysis (YouTube, TikTok, Instagram, Twitter) with advanced AI transcription, visual scene understanding, and comprehensive API integration.
+name: Video Intelligence Platform
+slug: video-intelligence-platform
+version: 1.5.1
+description: Enterprise video intelligence platform for AI agents. Multi-platform analysis (YouTube, TikTok, Instagram, Twitter) with advanced AI transcription, visual scene understanding, and comprehensive API integration. Compatible with OpenClaw, Claude Code, Cursor, and 50+ agent platforms.
 ---
 
-# Video Intelligence Suite
+# Video Intelligence Platform
 
-**Professional video analysis platform for AI agents.** The Video Intelligence Suite provides enterprise-grade video understanding capabilities through a unified CLI interface, delivering transcription, metadata extraction, and advanced AI visual analysis across multiple social media platforms.
+**Professional video analysis platform for AI agents.** The Video Intelligence Platform provides enterprise-grade video understanding capabilities through a unified CLI interface, delivering transcription, metadata extraction, and advanced AI visual analysis across multiple social media platforms. Compatible with all major AI agent ecosystems including OpenClaw, Claude Code, Cursor, and Skills.sh standard.
 
 ## Understanding Memories.ai APIs
 

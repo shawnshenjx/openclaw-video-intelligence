@@ -118,9 +118,9 @@ python scripts/analyze_video.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ" --
 | Platform | Metadata | Audio Transcript | Visual Analysis |
 |----------|----------|------------------|----------------|
 | YouTube  | ✅        | ✅               | ✅             |
-| TikTok   | ✅        | ❌               | ✅             |
-| Instagram| ✅        | ❌               | ✅             |
-| Twitter  | ✅        | ❌               | ✅             |
+| TikTok   | ✅        | ✅               | ✅             |
+| Instagram| ✅        | ✅               | ✅             |
+| Twitter  | ✅        | ✅               | ✅             |
 
 ## 🏗️ Dual API Architecture
 

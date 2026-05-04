@@ -105,9 +105,9 @@ memories v2 social mai-transcript --platform youtube --video-url URL
 | Platform | URL Format | Metadata | Transcript | MAI Analysis |
 |----------|------------|----------|------------|-------------|
 | YouTube | `youtube.com/watch?v=*` | ✅ | ✅ | ✅ |
-| TikTok | `tiktok.com/@*/video/*` | ✅ | ❌ | ✅ |
-| Instagram | `instagram.com/p/*` | ✅ | ❌ | ✅ |
-| Twitter | `twitter.com/*/status/*` | ✅ | ❌ | ✅ |
+| TikTok | `tiktok.com/@*/video/*` | ✅ | ✅ | ✅ |
+| Instagram | `instagram.com/p/*` | ✅ | ✅ | ✅ |
+| Twitter | `twitter.com/*/status/*` | ✅ | ✅ | ✅ |
 
 ### V1 API (Video Hosting Platform)
 | Function | Support | Description |
